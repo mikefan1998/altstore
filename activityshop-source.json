@@ -1,0 +1,27 @@
+{
+  "name": "ActivityShop",
+  "identifier": "com.talosforce.activ.source",
+  "subtitle": "ActivityShop Official Source",
+  "description": "Official AltStore source for ActivityShop.",
+  "website": "https://shopactiv.talosforce.com",
+  "sourceURL": "https://raw.githubusercontent.com/mikefan1998/altstore/main/activityshop-source.json",
+  "apps": [
+    {
+      "name": "ActivityShop",
+      "bundleIdentifier": "com.talosforce.activ",
+      "developerName": "DANG HOAN COMPANY LIMITED",
+      "subtitle": "Training and learning courses",
+      "localizedDescription": "This app provides a clear list of training and learning courses for your daily study. You can browse courses, manage your learning progress, and access study content easily.",
+      "tintColor": "007AFF",
+      "versions": [
+        {
+          "version": "1.05.06",
+          "date": "2026-09-10",
+          "size": 51889213,
+          "downloadURL": "https://github.com/mikefan1998/altstore/releases/download/v1.05.06/ActivityShop-1.05.06.ipa",
+          "localizedDescription": "Version 1.05.06"
+        }
+      ]
+    }
+  ]
+}
