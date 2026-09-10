@@ -53,17 +53,25 @@
       font-weight: 600;
       margin-bottom: 12px;
       transition: opacity 0.2s;
+      border: none;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
     .btn:active { opacity: 0.8; }
     .btn-secondary {
       background: #e5e5ea;
       color: #1d1d1f;
     }
+    .btn-success {
+      background: #34c759;
+      color: white;
+    }
     .tip {
       color: #86868b;
       font-size: 13px;
       line-height: 1.5;
       margin-top: 20px;
+      text-align: left;
     }
     .source-url {
       background: #f2f2f7;
@@ -73,6 +81,24 @@
       word-break: break-all;
       color: #555;
       margin-top: 16px;
+      text-align: left;
+    }
+    .steps {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 13px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .steps li { margin-bottom: 6px; margin-left: 18px; }
+    .notice {
+      background: #fff3cd;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 13px;
+      color: #856404;
+      margin-bottom: 16px;
+      text-align: left;
     }
   </style>
 </head>
@@ -82,22 +108,83 @@
     <h1>ActivityShop</h1>
     <p class="subtitle">通过 AltStore 安装</p>
 
+    <div class="notice">
+      必须先在设备上安装 AltStore，否则点击"添加到 AltStore"会提示"网址无效"。如果未安装，请先按官方教程安装。
+    </div>
+
     <a class="btn" href="altstore://source?url=https://raw.githubusercontent.com/mikefan1998/altstore/main/activityshop-source.json">
       添加到 AltStore
+    </a>
+
+    <button class="btn btn-secondary" id="copyBtn" onclick="copySource()">
+      复制 Source 链接
+    </button>
+
+    <a class="btn btn-secondary" href="https://faq.altstore.io/getting-started/installing-altstore" target="_blank" rel="noopener noreferrer">
+      AltStore 安装教程
     </a>
 
     <a class="btn btn-secondary" href="https://github.com/mikefan1998/altstore/releases/tag/v1.05.06">
       查看 Release
     </a>
 
-    <p class="tip">
-      点击按钮后会调起 AltStore 并自动添加 Source。<br>
-      如果设备上未安装 AltStore，请先安装。
-    </p>
-
     <div class="source-url">
-      Source: https://raw.githubusercontent.com/mikefan1998/altstore/main/activityshop-source.json
+      Source:<br>
+      https://raw.githubusercontent.com/mikefan1998/altstore/main/activityshop-source.json
     </div>
+
+    <ol class="steps">
+      <li>打开 AltStore App</li>
+      <li>点击底部 "Sources"</li>
+      <li>点击右上角 "+"</li>
+      <li>粘贴上方 Source 链接并确认</li>
+      <li>找到 ActivityShop 点击安装</li>
+    </ol>
+
+    <p class="tip">
+      如果点击"添加到 AltStore"仍然无效，说明当前浏览器或系统版本不支持直接调起 AltStore，请使用"复制 Source 链接"后手动添加。
+    </p>
   </div>
+
+  <script>
+    const SOURCE_URL = 'https://raw.githubusercontent.com/mikefan1998/altstore/main/activityshop-source.json';
+    const copyBtn = document.getElementById('copyBtn');
+
+    function copySource() {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(SOURCE_URL).then(showCopied, showCopyFallback);
+      } else {
+        showCopyFallback();
+      }
+    }
+
+    function showCopied() {
+      const original = copyBtn.textContent;
+      copyBtn.textContent = '已复制';
+      copyBtn.classList.remove('btn-secondary');
+      copyBtn.classList.add('btn-success');
+      setTimeout(() => {
+        copyBtn.textContent = original;
+        copyBtn.classList.remove('btn-success');
+        copyBtn.classList.add('btn-secondary');
+      }, 2000);
+    }
+
+    function showCopyFallback() {
+      const input = document.createElement('input');
+      input.value = SOURCE_URL;
+      input.style.position = 'fixed';
+      input.style.opacity = '0';
+      document.body.appendChild(input);
+      input.select();
+      try {
+        document.execCommand('copy');
+        showCopied();
+      } catch (err) {
+        copyBtn.textContent = '复制失败，请长按链接手动复制';
+      }
+      document.body.removeChild(input);
+    }
+  </script>
 </body>
 </html>
